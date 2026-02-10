@@ -196,7 +196,7 @@ git pull origin main
 * Dev Kumar Mahato
 * Harsh
 * Falak Fatima
-* Himanshu
+* Himanshu kumar
 * Abhishek
 * Shamba Sen
 
