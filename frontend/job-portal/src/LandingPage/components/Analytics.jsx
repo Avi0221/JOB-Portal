@@ -1,5 +1,5 @@
 import {color, motion} from "framer-motion";
-import {TrendingUp,Users,Briefcase,Target, icons} from "lucide-react";
+import { TrendingUp, Users, Briefcase, Target, icons} from "lucide-react";
 
 
 const Analytics = () => {
