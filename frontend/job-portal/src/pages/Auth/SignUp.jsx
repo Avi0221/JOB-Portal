@@ -5,7 +5,7 @@ import {
   User, Mail, Lock, Upload, Eye, EyeOff, UserCheck, Building2, CheckCircle, AlertCircle, Loader,
   Loader2,
 } from 'lucide-react'
-import { validateAvatar, validateEmail, validatePassword } from "../../utils/helper";
+
 import axiosInstance from "../../utils/axiosInstance";
 import { API_PATHS } from "../../utils/apiPaths";
 import uploadImage from "../../utils/uploadImage";
@@ -107,15 +107,20 @@ const SignUp = () => {
     setFormState(prev => ({ ...prev, loading: true }));
 
     try {
-      // Redirect based on user role
-      setTimeout(() => {
-        const redirectPath =
-          user.role === 'employer'
-            ? '/employer-dashboard'
-            : '/find-jobs';
+      let avatarUrl = "";
 
-        window.location.href = redirectPath;
-      }, 1500);
+      // Upload image if present 
+      if(formData.avatar){
+        const imgUploadRes = await uploadImage(formData.avatar);
+        avatarUrl = imgUploadRes.imageUrl || "";
+      }
+      const response = await axiosInstance.post(API_PATHS.AUTH.REGISTER,{
+        name: formData.fullName,
+        email: formData.email,
+        password: formData.password,
+        role:formData.role,
+        avatar: avatarUrl || "",
+      });
 
       // Handle successful registration
       setFormState(prev => ({

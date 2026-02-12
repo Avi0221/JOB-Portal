@@ -17,7 +17,7 @@ const JobDashboardCard = ({ job }) => {
       <div className="flex items-center space-x-3">
         <span
           className={`px-3 py-1 text-xs font-medium rounded-full ${
-            job.isClosed
+            !job.isClosed
               ? "bg-green-100 text-green-700"
               : "bg-gray-100 text-gray-600"
           }`}

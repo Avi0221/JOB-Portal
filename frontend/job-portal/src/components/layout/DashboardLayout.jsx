@@ -1,17 +1,16 @@
 import { useState, useEffect } from "react";
-import { Briefcase, Building2, Logout, Menu, X } from "lucide-react";
+import { Briefcase, Building2, LogOut, Logout, Menu, X } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { NAVIGATION_MENU } from "../../utils/data";
-import ProfileDropdown from "../ProfileDropdown"; // <-- import your dropdown component
+import ProfileDropdown from "../layout/ProfileDropDown"; // <-- import your dropdown component
 
 const NavigationItem = ({ item, isActive, onClick, isCollapsed }) => {
   const Icon = item.icon;
 
-  return (
-    <button
+  return <button
       onClick={() => onClick(item.id)}
-      className={`w-full flex items-center px-3 py-2.5 text-sm font-medium rounded-lg transition-colors
+      className={`w-full flex items-center px-3 py-2.5 text-sm font-medium rounded-lg transition-colors 
         ${
           isActive
             ? "bg-blue-50 text-blue-700 shadow-sm shadow-blue-50"
@@ -25,7 +24,7 @@ const NavigationItem = ({ item, isActive, onClick, isCollapsed }) => {
       />
       {!isCollapsed && <span className="ml-3 truncate">{item.name}</span>}
     </button>
-  );
+  
 };
 
 const DashboardLayout = ({ activeMenu, children }) => {
@@ -37,15 +36,26 @@ const DashboardLayout = ({ activeMenu, children }) => {
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
+  // Handle responsive behavior
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
+      const mobile = window.innerWidth < 768;
+      setIsMobile(mobile);
+      if(!mobile){
+        setSidebarOpen(false);
+      }
     };
-    window.addEventListener("resize", handleResize);
+    
     handleResize();
-    return () => window.removeEventListener("resize", handleResize);
+    window.addEventListener("resize", handleResize); 
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    }; 
   }, []);
 
+
+  // Close dropdowns when clicking outside
   useEffect(() => {
     const handleClickOutside = () => {
       if (profileDropdownOpen) {
@@ -70,19 +80,18 @@ const DashboardLayout = ({ activeMenu, children }) => {
 
   const sidebarCollapsed = !isMobile && false;
 
-  return (
-    <div className="flex h-screen bg-gray-50">
+  return <div className="flex h-screen bg-gray-50">
       {/* Sidebar */}
       <div
-        className={`fixed inset-y-0 left-0 z-50 transition-transform duration-300 transform
-          ${isMobile
+        className={`fixed inset-y-0 left-0 z-50 transition-transform duration-300 transform ${
+          isMobile
             ? sidebarOpen
               ? "translate-x-0"
               : "-translate-x-full"
             : "translate-x-0"
-          }
-          ${sidebarCollapsed ? "w-16" : "w-64"}
-          bg-white border-r border-gray-200 relative`}
+        }  ${
+          sidebarCollapsed ? "w-16" : "w-64"
+        } bg-white border-r border-gray-200`}
       >
         {/* Company Logo */}
         <div className="flex items-center h-16 border-b border-gray-200 pl-6">
@@ -119,7 +128,7 @@ const DashboardLayout = ({ activeMenu, children }) => {
             className="w-full flex items-center px-3 py-2.5 text-sm font-medium rounded-lg text-gray-700 hover:bg-gray-100"
             onClick={logout}
           >
-            <Logout className="h-5 w-5 flex-shrink-0 text-gray-500" />
+            <LogOut className="h-5 w-5 flex-shrink-0 text-gray-500" />
             {!sidebarCollapsed && <span className="ml-3">Logout</span>}
           </button>
         </div>
@@ -141,6 +150,7 @@ const DashboardLayout = ({ activeMenu, children }) => {
       >
         {/* Top navbar */}
         <header className="flex items-center justify-between bg-white shadow px-4 py-2">
+        <div className="">
           {isMobile && (
             <button
               className="p-2 rounded-xl hover:bg-gray-100 transition-colors duration-200"
@@ -161,6 +171,9 @@ const DashboardLayout = ({ activeMenu, children }) => {
               Here's what's happening with your jobs today.
             </p>
           </div>
+        </div>
+          
+          
           <div className="flex items-center space-x-3">
             {/* Profile dropdown */}
             <ProfileDropdown
@@ -181,7 +194,7 @@ const DashboardLayout = ({ activeMenu, children }) => {
         <main className="flex-1 overflow-auto p-6">{children}</main>
       </div>
     </div>
-  );
+  
 };
 
 export default DashboardLayout;
