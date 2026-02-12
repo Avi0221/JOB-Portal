@@ -1,6 +1,5 @@
 import React from "react";
 import { motion } from "framer-motion";
-
 import { Briefcase } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
@@ -9,7 +8,12 @@ const Header = () => {
     const user = { fullName: "Alex", role: "employer" };
     const navigate = useNavigate();
 
-    return <header>
+    return <motion.header
+        initial={{ opacity: 0, y: -20}}
+        animate={{ opacity: 1, y: 0}}
+        transition={{ duration: 0.6}}
+        className="fixed top-0 left-0 right-0 z-50 bg-white/95 background-blur-sm border-b border-gray-100"
+    >
         <div className="container mx-auto px-4">
             <div className="flex item-center justify-between h-16">
                 {/* logo */}
@@ -18,7 +22,7 @@ const Header = () => {
                         <Briefcase className="w-5 h-5 text-white" />
                     </div>
                     
-                    <samp className="text-xl font-bold text-gray-900">jobPortal</samp>
+                    <span className="text-xl font-bold text-gray-900">jobPortal</span>
                 </div>
 
                 {/* Navigation Link - Hidden on mobile */}
@@ -45,7 +49,7 @@ const Header = () => {
 
                   {/* Auth Button */}
                     <div className="flex items-center space-x-3">
-                        {isAuthenticated ? 
+                        {isAuthenticated ? (
                             <div className="flex items-center space-x-3">
                                 <spam className="text-gray-700">welcome, {user?.fullName}</spam>
                                 <a
@@ -59,7 +63,7 @@ const Header = () => {
                                 Dashboard
                                 </a>
                             </div>
-                        : (
+                        ): (
                         <>
                             <a
                             href="/login"
@@ -78,7 +82,7 @@ const Header = () => {
                     </div>
                 </div>  
               </div>             
-        </header>;
+        </motion.header>;
 };
 
 export default Header;

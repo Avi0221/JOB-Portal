@@ -35,13 +35,13 @@ const Features = () => {
                   className="flex items-start space-x-4 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow bg-gray-50"
                 >
                   <div className="text-blue-600 text-3xl">
-                    <feature.icon />
+                    <featture.icon className='w-6 h-6 text-blue-600' />
                   </div>
                   <div>
-                    <h4 className="text-lg font-bold text-gray-900">
+                    <h4 className="text-xl font-semibold text-gray-900 mb-2">
                       {feature.title}
                     </h4>
-                    <p className="text-gray-600">{feature.description}</p>
+                    <p className="text-gray-600 leading-relaxed">{feature.description}</p>
                   </div>
                 </div>
               ))}
@@ -51,24 +51,27 @@ const Features = () => {
           {/* Employers Section */}
           <div>
             <div className="text-center mb-12">
-              <h3 className="text-2xl font-semibold text-gray-800">
+              <h3 className="text-3xl font-bold text-gray-900 mb-4">
                 For Employers
               </h3>
+              <div className="w-24 h-1 bg-gradient-to-r from-purple-500 to-purple-600 mx-auto rounded-full" >
+
+              </div>
             </div>
             <div className="space-y-8">
               {employerFeatures.map((feature, index) => (
                 <div
                   key={index}
-                  className="flex items-start space-x-4 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow bg-gray-50"
+                  className=" group flex items-start space-x-4 p-6 rounded-2xl hover:bg-purple-50 transition-all duration-300 cursor-pointer"
                 >
-                  <div className="text-purple-600 text-3xl">
-                    <feature.icon />
+                  <div className="flex-shrink-0 w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center ground-hover:bg-purple-200 transition-colors">
+                    <feature.icon className="w-6 h-6 text-purple-600" />
                   </div>
                   <div>
-                    <h4 className="text-lg font-bold text-gray-900">
+                    <h4 className="text-xl font-semibold text-gray-900 mb-2">
                       {feature.title}
                     </h4>
-                    <p className="text-gray-600">{feature.description}</p>
+                    <p className="text-gray-600 leading-relaxed">{feature.description}</p>
                   </div>
                 </div>
               ))}
