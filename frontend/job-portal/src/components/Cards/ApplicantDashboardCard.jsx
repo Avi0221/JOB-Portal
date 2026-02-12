@@ -1,21 +1,22 @@
 import { Clock } from 'lucide-react';
 
 const ApplicantDashboardCard = ({ applicant, position, time }) => {
-  const initials = applicant.name
-    .split(" ")
-    .map((n) => n[0])
-    .join("");
-
   return (
     <div className="flex items-center justify-between p-4 rounded-xl border border-gray-100">
-      {/* Left section: Avatar + Info */}
+      
       <div className="flex items-center space-x-4">
-        {/* Gradient Avatar */}
+        
         <div className="h-10 w-10 bg-gradient-to-br from-indigo-400 to-indigo-500 rounded-xl flex items-center justify-center">
-          <span className="text-white font-medium text-sm">{initials}</span>
+          <span className="text-white font-medium text-sm">
+            {applicant.name
+              .split(" ")
+              .map((n) =>n[0])
+              .join("")
+            }
+          </span>
         </div>
 
-        {/* Applicant Info */}
+        
         <div>
           <h4 className="text-[15px] font-medium text-gray-900">
             {applicant.name}

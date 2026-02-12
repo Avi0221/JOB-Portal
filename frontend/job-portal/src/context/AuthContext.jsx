@@ -41,28 +41,28 @@ export const AuthProvider = ({ children }) => {
 
   const login = (userData, token) => {
 
-     localStorage.setItem('token', token);
-  localStorage.setItem('user', JSON.stringify(userData));
+    localStorage.setItem('token', token);
+    localStorage.setItem('user', JSON.stringify(userData));
 
-  setUser(userData);
-  setIsAuthenticated(true);
+    setUser(userData);
+    setIsAuthenticated(true);
 
   };
 
-    const logout = () => {
-       localStorage.removeItem('token');
-       localStorage.removeItem('refreshToken');
-       localStorage.removeItem('user');
+  const logout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('refreshToken');
+    localStorage.removeItem('user');
 
-  setUser(null);
-  setIsAuthenticated(false);
-  window.location.href = '/';
-    };
+    setUser(null);
+    setIsAuthenticated(false);
+    window.location.href = '/';
+  };
 
   const updateUser = (updatedUserData) => {
-     const newUserData = { ...user, ...updatedUserData };
-     localStorage.setItem('user', JSON.stringify(newUserData));
-     setUser(newUserData);
+    const newUserData = { ...user, ...updatedUserData };
+    localStorage.setItem('user', JSON.stringify(newUserData));
+    setUser(newUserData);
   };
 
   const value = {
