@@ -30,7 +30,7 @@ const JobPostingForm = () => {
     jobTitle: '',
     location: '',
     category: '',
-    jobType: '',
+    type: '',
     description: '',
     requirements: '',
     salaryMin: '',
@@ -72,7 +72,7 @@ const JobPostingForm = () => {
       requirements: formData.requirements,
       location: formData.location,
       category: formData.category,
-      type: formData.jobType,
+      type: formData.type,
       salaryMin: formData.salaryMin,
       salaryMax: formData.salaryMax,
     };
@@ -91,7 +91,7 @@ const JobPostingForm = () => {
           jobTitle: '',
           location: '',
           category: '',
-          jobType: '',
+          type: '',
           description: '',
           requirements: '',
           salaryMin: '',
@@ -124,8 +124,8 @@ const JobPostingForm = () => {
     if (!formData.category)
       errors.category = "Please select a category";
 
-    if (!formData.jobType)
-      errors.jobType = "Please select a job type";
+    if (!formData.type)
+      errors.type = "Please select a job type";
 
     if (!formData.description.trim())
       errors.description = "Job description is required";
@@ -163,7 +163,7 @@ const JobPostingForm = () => {
               jobTitle: jobData.title,
               location: jobData.location,
               category: jobData.category,
-              jobType: jobData.jobType,
+              type: jobData.type,
               description: jobData.description,
               requirements: jobData.requirements,
               salaryMin: jobData.salaryMin,
@@ -253,12 +253,12 @@ const JobPostingForm = () => {
 
               <SelectField
                 label='Job Type'
-                id='jobType'
+                id='type'
                 placeholder='Select job type'
-                value={formData.jobType}
-                onChange={(e) => handleInputChange("jobType", e.target.value)}
+                value={formData.type}
+                onChange={(e) => handleInputChange("type", e.target.value)}
                 options={JOB_TYPES}
-                error={errors.jobType}
+                error={errors.type}
                 required
                 icon={Briefcase}
               />

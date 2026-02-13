@@ -45,7 +45,7 @@ const Navbar = () => {
                         </button>
                     )}
 
-                    {isAuthticatyed ? (
+                    {isAuthenticated ? (
                         <ProfileDropDown
                             isOpen= {profileDropdownOpen}
                             onToggle={(e) =>{

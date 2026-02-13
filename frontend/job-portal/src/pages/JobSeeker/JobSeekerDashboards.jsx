@@ -6,6 +6,10 @@ import { API_PATHS } from "../../utils/apiPaths";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useAuth } from "../../context/AuthContext"
+import Navbar from "../../components/layout/Navbar"
+import SearchHeader from "./components/SearchHeader";
+import FilterContent from "./components/FilterContent"
+
 
 const JobSeekerDashboards = () => {
   
@@ -43,7 +47,7 @@ const JobSeekerDashboards = () => {
       setError(null);
 
       //Build Query Parameter
-      const params = new URLSearchparams();
+      const params = new URLSearchParams();
 
       if (filterParams.keyword) params.append("keyword", filterParams.keyword);
       if (filterParams.location) 
@@ -106,7 +110,7 @@ const JobSeekerDashboards = () => {
       }
     },500); // 500ms debounced
 
-    return ()=> clearTimesout(timeoutId);
+    return ()=> clearTimeout(timeoutId);
 
   }, [filters, user]);
 
@@ -130,6 +134,7 @@ const JobSeekerDashboards = () => {
   };
 
   const MobileFilterOverlay = () => {
+    return (
     <div
       className={`fixed inset-0 z-50 lg:hidden ${
         showMobileFilters ? "" : "hidden"
@@ -164,6 +169,7 @@ const JobSeekerDashboards = () => {
       </div>
 
     </div>
+    )
   };
 
   const toggleSavedJob = async (jobId, isSaved) => {
@@ -173,7 +179,7 @@ const JobSeekerDashboards = () => {
         await axiosInstance.delete(API_PATHS.JOBS.UNSAVE_JOB(jobId));
         toast.success("Job removed successfully");
       } else {
-        await axiosInstance.POST(API_PATHS.JOBS.SAVE_JOB(jobId));
+        await axiosInstance.post(API_PATHS.JOBS.SAVE_JOB(jobId));
         toast.success("Job saved successfully");
       }
 
@@ -189,7 +195,7 @@ const JobSeekerDashboards = () => {
     
   try{
     if(jobId) {
-      await axiosInstance.POST(API_PATHS.APPLICATIONS.APPLY_TO_JOB(jobId));
+      await axiosInstance.post(API_PATHS.APPLICATIONS.APPLY_TO_JOB(jobId));
       toast.success("Applied to job successfully!");
     }
 

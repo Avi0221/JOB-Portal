@@ -36,8 +36,8 @@ const ManageJob = () => {
   const filteredAndSortedJobs = useMemo(() =>{
     let filtered =jobs.filter((job) =>{
       const matchesSearch = 
-        job.title.toLowerCase().include(searchTerm.toLowerCase()) ||
-        job.company.toLowerCase().include(searchTerm.toLowerCase());
+        job.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        job.company.toLowerCase().includes(searchTerm.toLowerCase());
         const matchesStatus = 
           statusFilter === "All" || job.status===statusFilter;
         return matchesSearch && matchesStatus;
@@ -330,7 +330,7 @@ const ManageJob = () => {
                               {job.status}
                             </span>
                           </td>
-                          <td className="px-6 py-5 whitespace -nowrap min-w-[130px] sm:min-w-0">
+                          <td className="px-6 py-5 whitespace-nowrap min-w-[130px] sm:min-w-0">
                             <button 
                             className="flex items-center text-sm text-blue-600 hover:text-blue-800 font-semibold transition-colors duration-200 hover:bg-blue-50 px-2 py-1 rounded-lg" 
                             onClick={()=>

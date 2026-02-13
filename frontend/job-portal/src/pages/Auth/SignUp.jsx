@@ -36,14 +36,13 @@ const SignUp = () => {
       ...prev,
       [name]: value,
     }));
-  }
-
-
-  if (formState.errors[name]) {
-    setFormState(prev => ({
-      ...prev,
-      errors: { ...prev.errors, [name]: '' }
-    }))
+  
+    if (formState.errors[name]) {
+      setFormState(prev => ({
+        ...prev,
+        errors: { ...prev.errors, [name]: '' }
+      }))
+    }
   }
 
   const handleRoleChange = (role) => {
@@ -353,8 +352,8 @@ const SignUp = () => {
             <div className='grid grid-cols-2 gap-4'>
               <button
                 type='button'
-                onClick={() => handleRoleChange('jobSeeker')}
-                className={`p-4 rounded-lg border-2 transition-all ${formData.role === 'jobSeeker'
+                onClick={() => handleRoleChange('jobseeker')}
+                className={`p-4 rounded-lg border-2 transition-all ${formData.role === 'jobseeker'
                   ? 'border-blue-600 bg-blue-50 text-blue-700'
                   : 'border-gray-200 hover:border-gray-300'
                   } `}
@@ -390,10 +389,10 @@ const SignUp = () => {
 
 
           {/* Submit Error */}
-          {formState.submitError && (
+          {formState.errors.submit && (
             <div className="bg-red-50 border border-red-200 rounded-lg p-3">
               <p className="text-sm text-red-700 flex items-center">
-                {formState.submitError}
+                {formState.errors.submit}
               </p>
             </div>
           )}
