@@ -16,17 +16,18 @@ import {axiosInstance} from '../../utils/axiosInstance';
 
 const Login = () => {
   const { login } = useAuth()
+  
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-    rememberMe: false
+    email: "",
+    password: "",
+    rememberMe: false,
   });
 
   const [formState, setFormState] = useState({
     loading: false,
     errors: {},
     showPassword: false,
-    success: false
+    success: false,
   });
 
   
@@ -86,6 +87,7 @@ const Login = () => {
         ...prev,
         loading: false,
         success: true,
+        error:{}
       }));
 
       const { token, role } = response.data;
@@ -104,10 +106,9 @@ const Login = () => {
       // Redirect based on user role
       
       setTimeout(() => {
-        const redirectPath =
-          user.role === 'employer'
-            ? '/employer-dashboard'
-            : '/find-jobs';
+        const redirectPath = user.role === 'employer'
+          ? '/employer-dashboard'
+          : '/find-jobs';
 
         window.location.href = redirectPath;
       }, 1500);
