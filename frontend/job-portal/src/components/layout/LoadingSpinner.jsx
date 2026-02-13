@@ -1,4 +1,4 @@
-import { Briefcase } from 'react'
+import { Briefcase } from 'lucide-react'
 
 const LoadingSpinner = () => {
   return (
@@ -19,4 +19,4 @@ const LoadingSpinner = () => {
   )
 }
 
-export default LoadingSpinner
+export default LoadingSpinner;
