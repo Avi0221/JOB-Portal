@@ -1,16 +1,16 @@
-import React, { useState } from 'react'
-import { motion } from 'framer-motion'
-import { validateEmail, validatePassword, validateAvatar } from "../../utils/helper"
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { validateEmail, validatePassword, validateAvatar } from "../../utils/helper";
 import {
-  User, Mail, Lock, Upload, Eye, EyeOff, UserCheck, Building2, CheckCircle, AlertCircle, Loader,
-  Loader2,
-} from 'lucide-react'
+  User, Mail, Lock, Upload, Eye, EyeOff, UserCheck, Building2, CheckCircle, AlertCircle, Loader
+} from 'lucide-react';
 
 import axiosInstance from "../../utils/axiosInstance";
 import { API_PATHS } from "../../utils/apiPaths";
 import uploadImage from "../../utils/uploadImage";
 import { useAuth } from "../../context/AuthContext";
-import { useNavigate } from 'react-router-dom';
+// Imported Link here alongside useNavigate
+import { useNavigate, Link } from 'react-router-dom'; 
 
 const SignUp = () => {
   const { login } = useAuth();
@@ -30,7 +30,7 @@ const SignUp = () => {
     showPassword: false,
     avatarPreview: null,
     success: false,
-  })
+  });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -38,14 +38,14 @@ const SignUp = () => {
       ...prev,
       [name]: value,
     }));
-  
+ 
     if (formState.errors[name]) {
       setFormState(prev => ({
         ...prev,
         errors: { ...prev.errors, [name]: '' }
-      }))
+      }));
     }
-  }
+  };
 
   const handleRoleChange = (role) => {
     setFormData(prev => ({ ...prev, role, }));
@@ -53,7 +53,7 @@ const SignUp = () => {
       setFormState(prev => ({
         ...prev,
         errors: { ...prev.errors, role: '' }
-      }))
+      }));
     }
   };
 
@@ -65,7 +65,7 @@ const SignUp = () => {
         setFormState(prev => ({
           ...prev,
           errors: { ...prev.errors, avatar: error }
-        }))
+        }));
         return;
       }
 
@@ -78,7 +78,7 @@ const SignUp = () => {
           avatarPreview: e.target.result,
           errors: { ...prev.errors, avatar: '' },
         }));
-      }
+      };
       reader.readAsDataURL(file);
     }
   };
@@ -119,7 +119,7 @@ const SignUp = () => {
         name: formData.fullName,
         email: formData.email,
         password: formData.password,
-        role:formData.role,
+        role: formData.role,
         avatar: avatarUrl || "",
       });
 
@@ -136,12 +136,9 @@ const SignUp = () => {
       if (token) {
         login(response.data, token);
 
-        // Redirect based on role
+        // FIX: Replaced window.location.href with React Router's navigate()
         setTimeout(() => {
-          window.location.href =
-            formData.role === "employer"
-              ? "/employer-dashboard"
-              : "/find-jobs";
+          navigate(formData.role === "employer" ? "/employer-dashboard" : "/find-jobs");
         }, 2000);
       }
     }
@@ -155,11 +152,9 @@ const SignUp = () => {
             error.response?.data?.message ||
             "Registration failed. Please try again. "
         }
-      }))
+      }));
     }
-  }
-
-
+  };
 
   if (formState.success) {
     return (
@@ -176,14 +171,14 @@ const SignUp = () => {
           <p className='text-gray-600 mb-4'>
             Welcome to Job Portal, your account has been successfully created.
           </p>
-          <div className='animate-spin w-6 h-6 border-2 border-blue-600'></div>
+          <div className='animate-spin w-6 h-6 border-2 border-blue-600 border-t-transparent rounded-full mx-auto'></div>
           <p className='text-sm text-gray-500 mt-2'>
             Redirecting to dashboard...
           </p>
 
         </motion.div>
       </div>
-    )
+    );
   }
 
   return (
@@ -331,7 +326,7 @@ const SignUp = () => {
                   htmlFor="avatar"
                   className="cursor-pointer bg-gray-50 border border-gray-300 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-100 transition-colors flex items-center"
                 >
-                  <Upload className='w-4 h-4 ' />
+                  <Upload className='w-4 h-4 mr-2' />
                   <span>Upload Photo</span>
                 </label>
                 <p className='text-xs text-gray-500 mt-1'>JPG, JPEG, or PNG up to 5MB</p>
@@ -344,7 +339,6 @@ const SignUp = () => {
               </p>
             )}
           </div>
-
 
           {/* Role Selection */}
           <div>
@@ -363,7 +357,7 @@ const SignUp = () => {
                 <UserCheck className='w-8 h-8 mx-auto mb-2' />
                 <div className='font-medium'>Job Seeker</div>
                 <div className='text-xs text-gray-500'>
-                  Looking for oppportunities
+                  Looking for opportunities
                 </div>
               </button>
               <button
@@ -389,7 +383,6 @@ const SignUp = () => {
             )}
           </div>
 
-
           {/* Submit Error */}
           {formState.errors.submit && (
             <div className="bg-red-50 border border-red-200 rounded-lg p-3">
@@ -399,16 +392,16 @@ const SignUp = () => {
             </div>
           )}
 
-
           {/* Submit Button */}
           <button
             type='submit'
-            className='w-full bg-linear-to-r from-blue-600 to-purple-600 text-white py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center'
+            // FIX: Changed bg-linear-to-r to bg-gradient-to-r (valid Tailwind)
+            className='w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center'
             disabled={formState.loading}
           >
             {formState.loading ? (
               <span className="flex items-center">
-                <Loader className="w-5 h-5 animate-spin" />
+                <Loader className="w-5 h-5 animate-spin mr-2" />
                 <span>Creating Account...</span>
               </span>
             ) : (
@@ -420,19 +413,20 @@ const SignUp = () => {
           <div className="mt-4 text-center">
             <p className="text-sm text-gray-600">
               Already have an account?{' '}
-              <a
-                href="/login"
+              {/* FIX: Replaced standard <a> tag with React Router <Link> */}
+              <Link
+                to="/login"
                 className="text-blue-600 hover:text-blue-700 font-medium"
               >
                 Sign in here
-              </a>
+              </Link>
             </p>
           </div>
         </form>
 
       </motion.div>
     </div>
-  )
+  );
 }
 
-export default SignUp
+export default SignUp;
