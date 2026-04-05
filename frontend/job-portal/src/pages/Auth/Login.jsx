@@ -9,13 +9,13 @@ import {
   CheckCircle,
   Loader
 } from 'lucide-react';
-import {validateEmail} from "../../utils/helper";
-import {useAuth} from "../../context/AuthContext";
-import {API_PATHS} from '../../utils/apiPaths';
+import { validateEmail } from "../../utils/helper";
+import { useAuth } from "../../context/AuthContext";
+import { API_PATHS } from '../../utils/apiPaths';
 import axiosInstance from '../../utils/axiosInstance';
 
 const Login = () => {
-  const { login } = useAuth()
+  const { login } = useAuth();
   
   const [formData, setFormData] = useState({
     email: "",
@@ -29,8 +29,6 @@ const Login = () => {
     showPassword: false,
     success: false,
   });
-
-  
 
   const validatePassword = (password) => {
     if (!password) return 'Password is required';
@@ -87,7 +85,7 @@ const Login = () => {
         ...prev,
         loading: false,
         success: true,
-        error:{}
+        errors: {} // Changed from 'error' to 'errors' to match state shape
       }));
 
       const { token, role } = response.data;
@@ -95,23 +93,14 @@ const Login = () => {
       if (token) {
         login(response.data, token);
 
-        // Redirect based on role
+        // Single, corrected redirect based on the role extracted from response.data
         setTimeout(() => {
           window.location.href =
             role === "employer"
               ? "/employer-dashboard"
               : "/find-jobs";
-        }, 2000);
+        }, 1500);
       }
-      // Redirect based on user role
-      
-      setTimeout(() => {
-        const redirectPath = user.role === 'employer'
-          ? '/employer-dashboard'
-          : '/find-jobs';
-
-        window.location.href = redirectPath;
-      }, 1500);
 
     } catch (error) {
       setFormState(prev => ({
@@ -166,7 +155,6 @@ const Login = () => {
           <h2 className="text-2xl font-bold text-gray-900 mb-2">Welcome Back</h2>
           <p className="text-gray-600">Sign in to your JobPortal account</p>
         </div>
-
 
         <form onSubmit={handleSubmit} className='space-y-6'>
 
@@ -271,7 +259,6 @@ const Login = () => {
               </a>
             </p>
           </div>
-
 
         </form>
       </motion.div>
